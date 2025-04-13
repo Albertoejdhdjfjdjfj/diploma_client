@@ -1,0 +1,17 @@
+.game_room{
+     padding: 11px;
+     width: 100%;
+     display: flex;
+     justify-content: flex-start;
+}
+
+.game_room>span{
+     display: block;
+     width: 100px;
+     height: 100%;
+}
+
+.game_room_name{
+     width: 100px;
+     height: 100%;
+}
