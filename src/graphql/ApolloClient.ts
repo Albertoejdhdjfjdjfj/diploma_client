@@ -5,8 +5,8 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import Cookies from 'js-cookie';
 
 interface Env {
-  REACT_APP_URL_API: string,
-  REACT_APP_URL_API_WS: string
+  REACT_APP_URL_API: string;
+  REACT_APP_URL_API_WS: string;
 }
 
 const { REACT_APP_URL_API, REACT_APP_URL_API_WS } = process.env as unknown as Env;

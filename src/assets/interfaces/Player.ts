@@ -1,4 +1,4 @@
-export interface Player{
-     nickname: string;
-     playerId: string;
+export interface Player {
+  nickname: string;
+  playerId: string;
 }

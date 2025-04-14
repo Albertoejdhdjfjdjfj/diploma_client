@@ -1,9 +1,9 @@
-import { Player } from "./Player"
+import { Player } from './Player';
 
 export interface GameRoom {
-    id:string;
-    name: string;
-    creator: Player;  
-    players: Array<Player>;
-    observers: Array<Player>;
+  id: string;
+  name: string;
+  creator: Player;
+  players: Array<Player>;
+  observers: Array<Player>;
 }

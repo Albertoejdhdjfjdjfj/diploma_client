@@ -1,17 +1,60 @@
 .game_room{
-     padding: 11px;
      width: 100%;
+     min-height: 65px;
+     padding: 11px;
+     border: 2px solid rgba(34, 36, 38, 0.15);
+     border-bottom: 0px;
      display: flex;
      justify-content: flex-start;
 }
 
 .game_room>span{
      display: block;
-     width: 100px;
+     display: flex;
+     align-items: center;
+     width: 25%;
      height: 100%;
 }
 
 .game_room_name{
-     width: 100px;
+     width: 25%;
      height: 100%;
+     display: flex;
+     align-items: center;
+     flex-wrap: wrap;
+}
+
+.participants{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     width: 25%;
+     height: 100%;
+}
+
+.game_room_creator{
+     display: flex;
+     align-items: center;
+     width: 25%;
+     height: 100%;
+}
+
+.start_or_join{
+     display: flex;
+     width: 25%;
+     padding:0 15px 0 15px;
+     align-items: center;
+     justify-content: space-around;
+}
+
+.start_or_join > button{
+     width: 40px;
+     height: 30px;
+     border: 2px solid rgba(0, 0, 0, .87);
+     background-color: white;
+     padding: 2px;
+     border-radius: 10px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
 }

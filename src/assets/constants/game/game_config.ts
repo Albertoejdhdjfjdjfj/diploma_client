@@ -1,1 +1,1 @@
-export const MAX_NUMBER_PLAYERS:number = 15;
+export const MAX_NUMBER_PLAYERS: number = 15;

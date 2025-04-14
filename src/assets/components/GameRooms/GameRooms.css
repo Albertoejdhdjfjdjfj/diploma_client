@@ -1,0 +1,24 @@
+.game_rooms {
+  width: 1160px;
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid rgba(34, 36, 38, 0.15);
+  align-items: center;
+}
+
+.game_rooms_colums {
+  margin-top: 14px;
+  width: 100%;
+  height: 65px;
+  padding: 11px;
+  border: 2px solid rgba(34, 36, 38, 0.15);
+  border-bottom: 0px;
+  display: flex;
+}
+
+.game_rooms_colums > p {
+  width: 25%;
+  display: flex;
+  align-items: center;
+}
