@@ -6,7 +6,7 @@ import { ApolloProvider } from '@apollo/client';
 import { client } from './graphql/ApolloClient';
 import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './redux/middleware/saga';
-import rootReducer from './redux/combine_reducers';
+import rootReducer from './redux/rootReducer';
 import App from './App';
 
 const sagaMiddleware = createSagaMiddleware();

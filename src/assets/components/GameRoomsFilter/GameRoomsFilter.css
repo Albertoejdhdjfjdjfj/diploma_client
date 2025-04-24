@@ -13,12 +13,11 @@
 }
 
 .game_rooms_filter > button{
-     width: 50px;
+     width: 40px;
      height: 40px;
-     border: 2px solid rgba(0, 0, 0, .87);
      background-color: white;
      padding: 2px;
-     border-radius: 10px;
+     border:none;
      display: flex;
      justify-content: center;
      align-items: center;

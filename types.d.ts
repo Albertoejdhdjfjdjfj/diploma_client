@@ -9,6 +9,22 @@ declare module '*.svg' {
   export default src;
 }
 
+declare module '*.png' {
+  import * as React from 'react';
+
+  interface PNGProps {
+    src: string;
+    alt?: string;
+    className?: string;
+    style?: React.CSSProperties;
+  }
+
+  export const ReactComponent: React.FunctionComponent<PNGProps & { title?: string }>;
+
+  const src: string;
+  export default src;
+}
+
 declare module '*.jpg' {
   import * as React from 'react';
 

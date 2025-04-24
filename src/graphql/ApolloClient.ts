@@ -15,26 +15,26 @@ const httpLink = new HttpLink({
   uri: REACT_APP_URL_API
 });
 
-// const wsLink = new WebSocketLink({
-//   uri: "ws://localhost:4000/graphql",
-//   options: {
-//     reconnect: true,
-//     connectionParams: {
-//         authToken:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2Y2ZGFjMGE2MjVmMWQ4YmMzMmRkM2UiLCJlbWFpbCI6IjEiLCJuaWNrbmFtZSI6IjEiLCJpYXQiOjE3NDQ1NTkyMTh9.J6RK0wdmmgxXXnLv_QmCnrJZbWPDahP0I0RMxMPdIJg"
-//     }
-//   }
-// });
+const wsLink = new WebSocketLink({
+  uri: REACT_APP_URL_API_WS,
+  options: {
+    reconnect: true,
+    connectionParams: {
+        authToken: Cookies.get("token")
+    }
+  }
+});
 
-// const splitLink = split(
-//   ({ query }) => {
-//     const definition = getMainDefinition(query);
-//     return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
-//   },
-//   wsLink,
-//   httpLink
-// );
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
+  },
+  wsLink,
+  httpLink
+);
 
 export const client = new ApolloClient({
-  link: httpLink,
+  link: splitLink,
   cache: new InMemoryCache()
 });

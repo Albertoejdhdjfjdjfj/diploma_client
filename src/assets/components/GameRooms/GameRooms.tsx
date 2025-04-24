@@ -1,12 +1,13 @@
 import { GET_GAME_ROOMS } from '../../constants/graphql/queries';
 import { useQuery } from '@apollo/client';
-import { GameRoom } from '../../interfaces/GameRoom';
+import { GameRoom } from '../../interfaces/game/GameRoom';
 import GameRoomsFilter from '../GameRoomsFilter/GameRoomsFilter';
 import GameRoomBlock from '../GameRoom/GameRoomBlock';
+import Paginator from '../Paginator/Paginator';
 import './GameRooms.css';
 
 const GameRooms = () => {
-  const { loading, error, data, refetch, networkStatus } = useQuery<{
+  const { loading, error, data } = useQuery<{
     getGameRooms: Array<GameRoom>;
   }>(GET_GAME_ROOMS, {
     variables: {
@@ -20,11 +21,10 @@ const GameRooms = () => {
   if (loading) return <div>...Loading</div>;
   if (error) return <div>Error!{error.name}</div>;
   if (!data) return <div></div>;
-  console.log(data);
 
   return (
     <div className="game_rooms">
-      <GameRoomsFilter/>
+      <GameRoomsFilter />
       <div className="game_rooms_colums">
         <p>Slots</p>
         <p>Game</p>
@@ -35,6 +35,7 @@ const GameRooms = () => {
       {data.getGameRooms.map((game_room: GameRoom) => (
         <GameRoomBlock game_room={game_room} key={game_room.id} />
       ))}
+      <Paginator/>
     </div>
   );
 };

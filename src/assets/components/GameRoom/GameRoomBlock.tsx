@@ -1,6 +1,6 @@
 import React from 'react';
-import { Player } from '../../interfaces/Player';
-import { GameRoom } from '../../interfaces/GameRoom';
+import { Player } from '../../interfaces/game/Player';
+import { GameRoom } from '../../interfaces/game/GameRoom';
 import { MAX_NUMBER_PLAYERS } from '../../constants/game/game_config';
 import gamepad from '../../images/gamepad.svg';
 import plus from '../../images/plus.svg';

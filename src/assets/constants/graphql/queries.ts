@@ -4,11 +4,6 @@ export const LOG_IN = gql`
   query Query($email: String!, $password: String!) {
     userLogIn(email: $email, password: $password) {
       token
-      user {
-        id
-        nickname
-        email
-      }
     }
   }
 `;
