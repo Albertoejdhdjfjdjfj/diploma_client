@@ -1,0 +1,34 @@
+.paginator {
+  margin-top: 14px;
+  width: 100px;
+  height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paginator > button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(34, 36, 38, 0.15);
+  border-radius: 4px;
+  background-color: var(--white);
+}
+
+.paginator > button:nth-of-type(2) {
+  transform: rotate(180deg);
+}
+
+.paginator > button > img {
+  width: 16px;
+  height: 16px;
+}
+
+.paginator > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

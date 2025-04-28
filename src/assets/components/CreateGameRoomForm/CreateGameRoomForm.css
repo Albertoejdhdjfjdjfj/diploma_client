@@ -1,32 +1,32 @@
-.create_game_room_form{
-     margin-top: 10px;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     padding: 8px;
-     width: 100%;
-     border: 2px solid #22242626;
-     border-radius: 10px;
+.create_game_room_form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  width: 100%;
+  border: 2px solid #22242626;
+  border-radius: 10px;
 }
 
-.create_game_room_form>div{
-     margin-top: 8px;
-     width: 100%;
+.create_game_room_form > div {
+  margin-top: 8px;
+  width: 100%;
 }
 
-.create_game_room_form>div>input{
-     margin-top: 4px;
-     width: 100%;
-     height: 30px;
-     border: 2px solid rgba(34, 36, 38, 0.15);
-     border-radius: 4px;
-     padding: 11px;
+.create_game_room_form > div > input {
+  margin-top: 4px;
+  width: 100%;
+  height: 30px;
+  border: 2px solid rgba(34, 36, 38, 0.15);
+  border-radius: 4px;
+  padding: 11px;
 }
 
-.create_game_room_form>button{
-     margin-top: 20px;
-     width: 100px;
-     padding: 5px;
-     border: 2px solid rgba(34, 36, 38, 0.15);
-     border-radius: 4px;
+.create_game_room_form > button {
+  margin-top: 20px;
+  width: 100px;
+  padding: 5px;
+  border: 2px solid rgba(34, 36, 38, 0.15);
+  border-radius: 4px;
 }

@@ -3,22 +3,27 @@
   margin-top: 28px;
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid rgba(34, 36, 38, 0.15);
   align-items: center;
 }
 
-.game_rooms_colums {
+.game_rooms_columns {
   margin-top: 14px;
   width: 100%;
   height: 65px;
   padding: 11px;
-  border: 2px solid rgba(34, 36, 38, 0.15);
-  border-bottom: 0px;
+  border: 2px solid rgba(9, 80, 150, 0.15);
   display: flex;
 }
 
-.game_rooms_colums > p {
+.game_rooms_columns > p {
   width: 25%;
   display: flex;
   align-items: center;
+}
+
+.rooms {
+  width: 100%;
+  min-height: 325px;
+  display: flex;
+  flex-direction: column;
 }
