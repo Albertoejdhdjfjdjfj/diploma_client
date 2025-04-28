@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const UPDATED_GAME_ROOMS = gql`
+export const UPDATED_GAME_ROOM = gql`
 subscription Subscription {
   updatedGameRoom {
     creator {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { GET_GAME_ROOMS } from '../../constants/graphql/queries';
 import { JOIN_GAME_ROOM } from '../../constants/graphql/mutations';
-import { UPDATED_GAME_ROOMS } from '../../constants/graphql/subscriptions';
+import { UPDATED_GAME_ROOM } from '../../constants/graphql/subscriptions';
 import { useLazyQuery, useMutation,useSubscription } from '@apollo/client';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/rootReducer';
@@ -23,14 +23,8 @@ const GameRooms = () => {
     notifyOnNetworkStatusChange: true,
   });
 
-  const { data } = useSubscription(UPDATED_GAME_ROOMS);
+  const { data } = useSubscription(UPDATED_GAME_ROOM);
 
-  useEffect(() => {
-    if (data) {
-      console.log('Received updated game rooms:', data.updatedGameRooms);
-      setGameRooms(data.updatedGameRooms);
-    }
-  }, [data]);
 
   const handleGetRooms = async () => {
     const { data } = await getGameRooms();
@@ -39,7 +33,7 @@ const GameRooms = () => {
 
   useEffect(() => {
     handleGetRooms();
-  }, [page, sort]);
+  }, [page, sort, data]);
 
   return (
     <div className="game_rooms">
@@ -59,7 +53,7 @@ const GameRooms = () => {
       ) : (
         <div className="rooms">
           {gameRooms.map((game_room) => (
-            <GameRoomBlock game_room={game_room} key={game_room.id}/>
+            <GameRoomBlock game_room={game_room}/>
           ))}
         </div>
       )}

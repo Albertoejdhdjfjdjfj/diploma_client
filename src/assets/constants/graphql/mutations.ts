@@ -11,42 +11,42 @@ export const SIGN_UP = gql`
 `;
 
 export const CREATE_GAME_ROOM = gql`
-  mutation Mutation($name: String!) {
-    createGameRoom(name: $name) {
-      id
-      name
-      creator {
-        creatorId
-        nickname
-      }
-      players {
-        playerId
-        nickname
-      }
-      observers {
-        playerId
-        nickname
-      }
+ mutation Mutation($name: String!) {
+  createGameRoom(name: $name) {
+    creator {
+      playerId
+      nickname
+    }
+    id
+    name
+    observers {
+      nickname
+      playerId
+    }
+    players {
+      nickname
+      playerId
     }
   }
+}
 `;
 export const JOIN_GAME_ROOM = gql`
   mutation Mutation($id: ID!) {
-    joinGameRoom(id: $id) {
-      creator {
-        creatorId
-        nickname
-      }
-      id
-      name
-      observers {
-        nickname
-        playerId
-      }
-      players {
-        nickname
-        playerId
-      }
+  joinGameRoom(id: $id) {
+    creator {
+      nickname
+      playerId
+    }
+    id
+    name
+    observers {
+      nickname
+      playerId
+    }
+    players {
+      nickname
+      playerId
     }
   }
+}
 `;
