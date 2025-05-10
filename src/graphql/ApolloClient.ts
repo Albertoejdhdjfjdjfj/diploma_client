@@ -20,7 +20,7 @@ const wsLink = new WebSocketLink({
   options: {
     reconnect: true,
     connectionParams: {
-        authToken:Cookies.get("token")
+      authToken: Cookies.get('token')
     }
   }
 });

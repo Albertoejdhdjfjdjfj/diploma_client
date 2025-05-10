@@ -9,22 +9,31 @@ export const LOG_IN = gql`
 `;
 
 export const GET_GAME_ROOMS = gql`
- query GetGameRooms($sort: String, $page: Int, $limit: Int) {
-  getGameRooms(sort: $sort, page: $page, limit: $limit) {
-    creator {
-      nickname
-      playerId
-    }
-    id
-    name
-    observers {
-      nickname
-      playerId
-    }
-    players {
-      nickname
-      playerId
+  query GetGameRooms($sort: String!, $page: Int!, $limit: Int!) {
+    getGameRooms(sort: $sort, page: $page, limit: $limit) {
+      creator {
+        nickname
+        playerId
+      }
+      id
+      name
+      observers {
+        nickname
+        playerId
+      }
+      players {
+        nickname
+        playerId
+      }
     }
   }
-}
+`;
+
+export const GET_PROFILE_DATA = gql`
+  query getProfileData {
+    getProfileData {
+      id
+      nickname
+    }
+  }
 `;

@@ -1,19 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import { useDispatch } from 'react-redux';
+import { sendNotification } from '../../../redux/reducers/notificationsReducer/actions/actions';
 import Cookies from 'js-cookie';
 import { Player } from '../../interfaces/game/Player';
 import { GameRoom } from '../../interfaces/game/GameRoom';
 import { MAX_NUMBER_PLAYERS } from '../../constants/game/game_config';
-import { JOIN_GAME_ROOM } from '../../constants/graphql/mutations';
+import { JOIN_GAME_ROOM, START_GAME } from '../../constants/graphql/mutations';
 import gamepad from '../../images/gamepad.svg';
 import plus from '../../images/plus.svg';
 import './GameRoomBlock.css';
 
-const GameRoomBlock = ({ game_room}: { game_room: GameRoom}) => {
+const GameRoomBlock = ({ game_room }: { game_room: GameRoom }) => {
   const [joinGameRoom] = useMutation<{ createGameRoom: GameRoom }>(JOIN_GAME_ROOM);
+  const [startGame] = useMutation(START_GAME);
   const players: number = game_room.players.length;
   const observers: number = game_room.observers.length;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const inGame = () => {};
 
   const handleJoinGameRoom = async (gameId: string) => {
     try {
@@ -25,14 +31,37 @@ const GameRoomBlock = ({ game_room}: { game_room: GameRoom}) => {
           }
         }
       });
-      navigate('/');
-    } catch {
+    } catch (error) {
+      const err = error as Error;
       if (!Cookies.get('token')) {
         navigate('/logIn');
+      } else {
+        dispatch(sendNotification(err.message));
       }
     }
   };
-  
+
+  const handleStartGame = async (gameId: string) => {
+    try {
+      await startGame({
+        variables: { gameId: gameId },
+        context: {
+          headers: {
+            Authorization: Cookies.get('token')
+          }
+        }
+      });
+      navigate('/game');
+    } catch (error) {
+      const err = error as Error;
+      if (!Cookies.get('token')) {
+        navigate('/logIn');
+      } else {
+        dispatch(sendNotification(err.message));
+      }
+    }
+  };
+
   return (
     <div className="game_room">
       <span>
@@ -49,10 +78,10 @@ const GameRoomBlock = ({ game_room}: { game_room: GameRoom}) => {
       </div>
       <p className="game_room_creator">{game_room.creator.nickname}</p>
       <div className="start_or_join">
-        <button>
+        <button onClick={() => handleStartGame(game_room.id)}>
           <img alt="start game" title="start game" src={gamepad} />
         </button>
-        <button onClick={()=>handleJoinGameRoom(game_room.id)}>
+        <button onClick={() => handleJoinGameRoom(game_room.id)}>
           <img alt="join to game" title="join to game" src={plus} />
         </button>
       </div>
