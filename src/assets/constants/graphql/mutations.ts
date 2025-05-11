@@ -31,23 +31,18 @@ export const CREATE_GAME_ROOM = gql`
   }
 `;
 
-export const JOIN_GAME_ROOM = gql`
-  mutation Mutation($id: ID!) {
+export const JOIN_TO_GAME_ROOM = gql`
+  mutation JoinToGameRoom($id: ID!) {
     joinGameRoom(id: $id) {
-      creator {
-        nickname
-        playerId
-      }
       id
-      name
-      observers {
-        nickname
-        playerId
-      }
-      players {
-        nickname
-        playerId
-      }
+    }
+  }
+`;
+
+export const LEAVE_GAME_ROOM = gql`
+  mutation LeaveGameRoom($id: ID!) {
+    leaveGameRoom(id: $id) {
+      id
     }
   }
 `;

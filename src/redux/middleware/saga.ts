@@ -1,4 +1,4 @@
-import { takeEvery, put, all, delay,call } from 'redux-saga/effects';
+import { takeEvery, put, all, delay, call } from 'redux-saga/effects';
 import Cookies from 'js-cookie';
 import { Action } from '../../assets/interfaces/redux/Action';
 import { SEND_NOTIFICATION } from '../reducers/notificationsReducer/actions/actionsTypes';
@@ -10,7 +10,7 @@ import { UserInfo } from '../../assets/interfaces/game/UserInfo';
 import { setUserInfo } from '../reducers/userReducer/actions/actions';
 
 export function* rootSaga() {
-  yield all([watchSendingNotification(),watchGettingUserInfo()]);
+  yield all([watchSendingNotification(), watchGettingUserInfo()]);
 }
 
 function* watchSendingNotification() {
@@ -28,11 +28,11 @@ function* settingNotification(action: Action<string>) {
 }
 
 function* gettingUserInfo() {
-  try{
-    const userInfo:UserInfo = yield call(fetchUserInfo,client);
-    yield put(setUserInfo(userInfo))
-  }catch{
-    yield put(setUserInfo(null))
-    Cookies.remove("token")
+  try {
+    const userInfo: UserInfo = yield call(fetchUserInfo, client);
+    yield put(setUserInfo(userInfo));
+  } catch {
+    yield put(setUserInfo(null));
+    Cookies.remove('token');
   }
 }
