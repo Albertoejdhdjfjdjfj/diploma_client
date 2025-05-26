@@ -29,6 +29,19 @@ export const GET_GAME_ROOMS = gql`
   }
 `;
 
+export const GET_MESSAGES = gql`
+  query GetMessages($gameId: String!) {
+    getMessages(gameId: $gameId) {
+      id
+      content
+      sender {
+        nickname
+        playerId
+      }
+    }
+  }
+`;
+
 export const GET_PROFILE_DATA = gql`
   query getProfileData {
     getProfileData {

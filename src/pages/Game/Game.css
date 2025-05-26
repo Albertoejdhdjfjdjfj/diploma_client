@@ -6,12 +6,34 @@
   align-items: center;
 }
 
+.game > .messages {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.game > .messages > div {
+  margin-top: 20px;
+  padding: 2px 4px;
+  background-color: aqua;
+  float: left;
+}
+
+.user_message {
+  float: right;
+}
+
+.game > .messages > div > p {
+  color: black;
+}
+
 .game > form {
   width: 50%;
   height: 40px;
   display: flex;
   align-items: center;
   position: fixed;
+  top: 90%;
 }
 
 .game > form > input {

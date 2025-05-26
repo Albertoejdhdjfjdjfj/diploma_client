@@ -21,18 +21,22 @@ export const UPDATED_GAME_ROOM = gql`
   }
 `;
 
-export const CHAT = gql`
-  subscription Chat($token: String) {
-    message(token: $token) {
-      chat {
-        content
-        sender {
-          user {
-            nickname
-            playerId
-          }
-        }
+export const NEW_MESSAGE = gql`
+  subscription NewMeassage($gameId: String!, $token: String) {
+    newMessage(gameId: $gameId, token: $token) {
+      content
+      sender {
+        nickname
+        playerId
       }
+    }
+  }
+`;
+
+export const ROLE = gql`
+  subscription Subscription($gameId: String!, $token: String) {
+    role(gameId: $gameId, token: $token) {
+      role
     }
   }
 `;

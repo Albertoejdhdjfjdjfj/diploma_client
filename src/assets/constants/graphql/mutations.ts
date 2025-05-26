@@ -48,7 +48,7 @@ export const LEAVE_GAME_ROOM = gql`
 `;
 
 export const START_GAME = gql`
-  mutation Mutation($gameId: ID!) {
-    startGame(gameId: $gameId)
+  mutation Mutation($id: ID!) {
+    startGame(id: $id)
   }
 `;
