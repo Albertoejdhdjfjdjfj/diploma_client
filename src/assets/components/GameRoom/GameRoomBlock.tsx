@@ -78,7 +78,7 @@ const GameRoomBlock = ({ game_room }: { game_room: GameRoom }) => {
   const handleStartGame = async (gameId: string) => {
     try {
       await startGame({
-        variables: { gameId: gameId },
+        variables: { id: gameId },
         context: {
           headers: {
             Authorization: Cookies.get('token')
@@ -115,16 +115,16 @@ const GameRoomBlock = ({ game_room }: { game_room: GameRoom }) => {
         <button onClick={() => handleStartGame(game_room.id)}>
           <img alt="start game" title="start game" src={gamepad} />
         </button>
-        {userInfo &&
-          (!inGame() ? (
-            <button onClick={() => handleJoinGameRoom(game_room.id)}>
-              <img alt="join to game room" title="join to game room" src={plus} />
-            </button>
-          ) : (
+        {/* {userInfo &&
+          (!inGame() ? ( */}
+        <button onClick={() => handleJoinGameRoom(game_room.id)}>
+          <img alt="join to game room" title="join to game room" src={plus} />
+        </button>
+        {/* ) : (
             <button onClick={() => handleLeaveGameRoom(game_room.id)}>
               <img alt="leave game room" title="leave game room" src={minus} />
             </button>
-          ))}
+          ))} */}
       </div>
     </div>
   );

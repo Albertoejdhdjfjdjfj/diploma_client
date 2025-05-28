@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLazyQuery, useSubscription } from '@apollo/client';
 import { GET_MESSAGES } from '../../assets/constants/graphql/queries';
-import { NEW_MESSAGE} from '../../assets/constants/graphql/subscriptions';
+import { NEW_MESSAGE } from '../../assets/constants/graphql/subscriptions';
 import GameHeaderBar from '../../assets/components/GameHeaderBar/GameHeaderBar';
 import send from '../../assets/images/send.svg';
 import './Game.css';
@@ -13,15 +13,15 @@ import { UserInfo } from '../../assets/interfaces/game/UserInfo';
 
 const Game = () => {
   const userInfo: UserInfo | null = useSelector((state: RootState) => state.user.userInfo);
+  const gameId: string | null = useSelector((state: RootState) => state.game.activeGameId);
   const [messages, setMessages] = useState<Array<Message>>([]);
-  const gameData: {gameId:string,role:string|null } | undefined = JSON.parse(Cookies.get('activeGame')||'');
   const token: string | undefined = Cookies.get('token');
 
   const [getMessages] = useLazyQuery<{ getMessages: Array<Message> }>(GET_MESSAGES, {
-    variables: { gameId: gameData?.gameId },
+    variables: { gameId },
     context: {
       headers: {
-        Authorization: Cookies.get('token')
+        Authorization: token
       }
     },
     notifyOnNetworkStatusChange: true,
@@ -29,7 +29,7 @@ const Game = () => {
   });
 
   const { data: newMessage } = useSubscription(NEW_MESSAGE, {
-    variables: { gameId:gameData?.gameId, token }
+    variables: { token, gameId }
   });
 
   const isUserMessage = (messageId: string): boolean => {
@@ -41,6 +41,7 @@ const Game = () => {
 
   const handleGetMessages = async () => {
     const { data } = await getMessages();
+    console.log(data);
     if (data) {
       setMessages(data.getMessages);
     }
@@ -48,7 +49,7 @@ const Game = () => {
 
   useEffect(() => {
     handleGetMessages();
-  }, [newMessage]);
+  }, []);
 
   return (
     <div className="game">

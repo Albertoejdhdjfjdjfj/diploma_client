@@ -22,8 +22,8 @@ export const UPDATED_GAME_ROOM = gql`
 `;
 
 export const NEW_MESSAGE = gql`
-  subscription NewMeassage($gameId: String!, $token: String) {
-    newMessage(gameId: $gameId, token: $token) {
+  subscription NewMeassage($token: String, $gameId: String!) {
+    newMessage(token: $token, gameId: $gameId) {
       content
       sender {
         nickname
@@ -37,6 +37,14 @@ export const ROLE = gql`
   subscription Subscription($gameId: String!, $token: String) {
     role(gameId: $gameId, token: $token) {
       role
+    }
+  }
+`;
+
+export const ACTIVE_GAME = gql`
+  subscription ActiveGame($token: String) {
+    activeGame(token: $token) {
+      gameId
     }
   }
 `;

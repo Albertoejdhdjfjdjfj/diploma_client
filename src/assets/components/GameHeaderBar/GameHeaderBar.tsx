@@ -9,9 +9,9 @@ import './GameHeaderBar.css';
 const GameHeaderBar = () => {
   const navigate = useNavigate();
   const gameId = Cookies.get('gameId');
-  const token = Cookies.get('token'); 
+  const token = Cookies.get('token');
 
-  const { data} = useSubscription<{ role: string }>(ROLE, {
+  const { data } = useSubscription<{ role: string }>(ROLE, {
     variables: { gameId, token }
   });
 
@@ -25,7 +25,7 @@ const GameHeaderBar = () => {
         Mafia
         <img alt="logo" src={logo} />
       </a>
-      { data && <span>{data.role}</span> }
+      {data && <span>{data.role}</span>}
       <p onClick={handleLeaveGame}>Leave Game</p>
     </div>
   );

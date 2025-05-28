@@ -32,7 +32,6 @@ export const GET_GAME_ROOMS = gql`
 export const GET_MESSAGES = gql`
   query GetMessages($gameId: String!) {
     getMessages(gameId: $gameId) {
-      id
       content
       sender {
         nickname
@@ -47,6 +46,14 @@ export const GET_PROFILE_DATA = gql`
     getProfileData {
       id
       nickname
+    }
+  }
+`;
+
+export const GET_ACTIVE_GAME = gql`
+  query getActiveGame {
+    getActiveGame {
+      gameId
     }
   }
 `;
