@@ -262,7 +262,6 @@ var GameRoomBlock = function (_a) {
             ];
           case 1:
             _a.sent();
-            navigate('/game');
             return [3 /*break*/, 3];
           case 2:
             error_3 = _a.sent();

@@ -85,7 +85,6 @@ const GameRoomBlock = ({ game_room }: { game_room: GameRoom }) => {
           }
         }
       });
-      navigate('/game');
     } catch (error) {
       const err = error as Error;
       if (!Cookies.get('token')) {
