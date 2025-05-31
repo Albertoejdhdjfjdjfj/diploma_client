@@ -7,51 +7,68 @@
 }
 
 .game > .messages {
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
 }
 
-.game > .messages > div {
+.game > .messages > .message {
   margin-top: 20px;
-  padding: 2px 4px;
-  background-color: aqua;
   float: left;
+  max-width: 45%;
 }
 
-.user_message {
+.game > .messages > .user_message {
+  margin-top: 20px;
   float: right;
+  max-width: 45%;
 }
 
 .game > .messages > div > p {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: aqua;
   color: black;
+  border-radius: 10px;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
-.game > form {
+.game > .input_message {
   width: 50%;
   height: 40px;
+  border: 2px solid rgba(34, 36, 38, 0.15);
   display: flex;
   align-items: center;
   position: fixed;
   top: 90%;
 }
 
-.game > form > input {
-  width: 100%;
-  height: 100%;
-  border: 2px solid rgba(34, 36, 38, 0.15);
-  border-radius: 25px;
-  padding: 0 10px 0 10px;
+.game > .focus {
+  padding: 11px;
+   border: 2px solid rgba(0, 0, 0, 0.87);
 }
 
-.game > form > button {
+.game > .input_message > input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0 10px;
+}
+
+.game > .input_message > input:focus {
+  outline: none; 
+  border: none; 
+}
+
+.game > .input_message > button {
   width: 40px;
   height: 40px;
   border: none;
   background-color: white;
 }
 
-.game > form > button > img {
+.game > .input_message > button > img {
   width: 40px;
   height: 40px;
 }

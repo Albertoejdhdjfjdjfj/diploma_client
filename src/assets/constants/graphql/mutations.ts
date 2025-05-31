@@ -11,7 +11,7 @@ export const SIGN_UP = gql`
 `;
 
 export const CREATE_GAME_ROOM = gql`
-  mutation Mutation($name: String!) {
+  mutation CreateGameRoom($name: String!) {
     createGameRoom(name: $name) {
       creator {
         playerId
@@ -48,7 +48,13 @@ export const LEAVE_GAME_ROOM = gql`
 `;
 
 export const START_GAME = gql`
-  mutation Mutation($id: ID!) {
+  mutation StartGame($id: ID!) {
     startGame(id: $id)
+  }
+`;
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage($content: String!, $gameId: String!) {
+    sendMessage(content: $content, gameId: $gameId)
   }
 `;

@@ -10,7 +10,8 @@ var __makeTemplateObject =
     return cooked;
   };
 exports.__esModule = true;
-exports.START_GAME =
+exports.SEND_MESSAGE =
+  exports.START_GAME =
   exports.LEAVE_GAME_ROOM =
   exports.JOIN_TO_GAME_ROOM =
   exports.CREATE_GAME_ROOM =
@@ -32,10 +33,10 @@ exports.CREATE_GAME_ROOM = client_1.gql(
   templateObject_2 ||
     (templateObject_2 = __makeTemplateObject(
       [
-        '\n  mutation Mutation($name: String!) {\n    createGameRoom(name: $name) {\n      creator {\n        playerId\n        nickname\n      }\n      id\n      name\n      observers {\n        nickname\n        playerId\n      }\n      players {\n        nickname\n        playerId\n      }\n    }\n  }\n'
+        '\n  mutation CreateGameRoom($name: String!) {\n    createGameRoom(name: $name) {\n      creator {\n        playerId\n        nickname\n      }\n      id\n      name\n      observers {\n        nickname\n        playerId\n      }\n      players {\n        nickname\n        playerId\n      }\n    }\n  }\n'
       ],
       [
-        '\n  mutation Mutation($name: String!) {\n    createGameRoom(name: $name) {\n      creator {\n        playerId\n        nickname\n      }\n      id\n      name\n      observers {\n        nickname\n        playerId\n      }\n      players {\n        nickname\n        playerId\n      }\n    }\n  }\n'
+        '\n  mutation CreateGameRoom($name: String!) {\n    createGameRoom(name: $name) {\n      creator {\n        playerId\n        nickname\n      }\n      id\n      name\n      observers {\n        nickname\n        playerId\n      }\n      players {\n        nickname\n        playerId\n      }\n    }\n  }\n'
       ]
     ))
 );
@@ -64,8 +65,24 @@ exports.LEAVE_GAME_ROOM = client_1.gql(
 exports.START_GAME = client_1.gql(
   templateObject_5 ||
     (templateObject_5 = __makeTemplateObject(
-      ['\n  mutation Mutation($gameId: ID!) {\n    startGame(gameId: $gameId)\n  }\n'],
-      ['\n  mutation Mutation($gameId: ID!) {\n    startGame(gameId: $gameId)\n  }\n']
+      ['\n  mutation StartGame($id: ID!) {\n    startGame(id: $id)\n  }\n'],
+      ['\n  mutation StartGame($id: ID!) {\n    startGame(id: $id)\n  }\n']
     ))
 );
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5;
+exports.SEND_MESSAGE = client_1.gql(
+  templateObject_6 ||
+    (templateObject_6 = __makeTemplateObject(
+      [
+        '\n  mutation SendMessage($content: String!,$gameId:String!) {\n    sendMessage(content: $content,gameId: $gameId)\n  }\n'
+      ],
+      [
+        '\n  mutation SendMessage($content: String!,$gameId:String!) {\n    sendMessage(content: $content,gameId: $gameId)\n  }\n'
+      ]
+    ))
+);
+var templateObject_1,
+  templateObject_2,
+  templateObject_3,
+  templateObject_4,
+  templateObject_5,
+  templateObject_6;

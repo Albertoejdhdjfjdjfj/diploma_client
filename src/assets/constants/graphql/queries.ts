@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const LOG_IN = gql`
-  query Query($email: String!, $password: String!) {
+  query UserLogIn($email: String!, $password: String!) {
     userLogIn(email: $email, password: $password) {
       token
     }
@@ -42,7 +42,7 @@ export const GET_MESSAGES = gql`
 `;
 
 export const GET_PROFILE_DATA = gql`
-  query getProfileData {
+  query GetProfileData {
     getProfileData {
       id
       nickname
@@ -51,7 +51,7 @@ export const GET_PROFILE_DATA = gql`
 `;
 
 export const GET_ACTIVE_GAME = gql`
-  query getActiveGame {
+  query GetActiveGame {
     getActiveGame {
       gameId
     }

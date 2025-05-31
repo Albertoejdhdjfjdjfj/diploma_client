@@ -1,36 +1,44 @@
+import { ChangeEvent, KeyboardEvent } from 'react';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useQuery, useSubscription } from '@apollo/client';
+import { useSelector, useDispatch } from 'react-redux';
+import { useQuery, useSubscription, useMutation } from '@apollo/client';
 import { GET_MESSAGES } from '../../assets/constants/graphql/queries';
 import { NEW_MESSAGE } from '../../assets/constants/graphql/subscriptions';
+import { SEND_MESSAGE } from '../../assets/constants/graphql/mutations';
 import GameHeaderBar from '../../assets/components/GameHeaderBar/GameHeaderBar';
 import send from '../../assets/images/send.svg';
-import './Game.css';
 import Cookies from 'js-cookie';
 import { Message } from '../../assets/interfaces/game/Message';
 import { RootState } from '../../redux/rootReducer';
 import { UserInfo } from '../../assets/interfaces/game/UserInfo';
+import { sendNotification } from '../../redux/reducers/notificationsReducer/actions/actions';
+import './Game.css';
 
 const Game = () => {
   const userInfo: UserInfo | null = useSelector((state: RootState) => state.user.userInfo);
   const gameId: string | null = useSelector((state: RootState) => state.game.activeGameId);
   const token: string | undefined = Cookies.get('token');
+  const dispatch = useDispatch();
 
-  const { data, loading, error } = useQuery(GET_MESSAGES, {
+  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [content, setContent] = useState<string>('');
+  const [focus,setFocus] = useState<boolean>(false)
+
+  const { data } = useQuery(GET_MESSAGES, {
     variables: { gameId },
     context: {
       headers: {
-        Authorization: token,
-      },
+        Authorization: token
+      }
     },
-    fetchPolicy: 'no-cache',
+    fetchPolicy: 'no-cache'
   });
 
   const { data: newMessage } = useSubscription(NEW_MESSAGE, {
-    variables: { token, gameId },
+    variables: { token, gameId }
   });
 
-  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [sendMessage] = useMutation(SEND_MESSAGE);
 
   useEffect(() => {
     if (data) {
@@ -46,24 +54,78 @@ const Game = () => {
 
   const isUserMessage = (messageId: string): boolean => userInfo?.id === messageId;
 
+  function handleInputMessage(e: ChangeEvent<HTMLInputElement>) {
+    setContent(e.currentTarget.value);
+  }
+
+  function changeFocus(){
+    setFocus(!focus)
+  }
+
+  const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      try {
+        await sendMessage({
+          variables: { content, gameId },
+          context: {
+            headers: {
+              Authorization: token
+            }
+          }
+        });
+      } catch (error) {
+        const err = error as Error;
+        dispatch(sendNotification(err.message));
+      } finally {
+        setContent('');
+      }
+    }
+  };
+
+  async function handeleButtonClick() {
+    try {
+      await sendMessage({
+        variables: { content, gameId },
+        context: {
+          headers: {
+            Authorization: token
+          }
+        }
+      });
+    } catch (error) {
+      const err = error as Error;
+      dispatch(sendNotification(err.message));
+    } finally {
+      setContent('');
+    }
+  }
+
   return (
     <div className="game">
       <GameHeaderBar />
       <div className="messages">
-        {loading && <div>...Loading</div>}
-        {error && <div>Error! {error.message}</div>}
         {messages.map((message: Message) => (
-          <div key={message.id} className={isUserMessage(message.id) ? 'user_message' : ''}>
-            {message.content}
+          <div
+            key={message.id}
+            className={isUserMessage(message.sender.playerId) ? 'user_message' : 'message'}
+          >
+            <p>{message.content}</p>
           </div>
         ))}
       </div>
-      <form className="input_message" onSubmit={(e) => e.preventDefault()}>
-        <input type="text" />
-        <button type="submit">
+      <div className={"input_message"+' '+(focus?'focus':'')} >
+        <input
+          type="text"
+          onChange={handleInputMessage}
+          onKeyDown={handleKeyDown}
+          onFocus={changeFocus}
+          onBlur={changeFocus}
+          value={content}
+        />
+        <button type="submit" onClick={handeleButtonClick}>
           <img src={send} alt="Send" />
         </button>
-      </form>
+      </div>
     </div>
   );
 };
