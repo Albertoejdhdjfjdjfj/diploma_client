@@ -22,15 +22,18 @@ export const UPDATED_GAME_ROOM = gql`
 `;
 
 export const NEW_MESSAGE = gql`
-  subscription NewMessage($token: String, $gameId: String!) {
-    newMessage(token: $token, gameId: $gameId) {
+ subscription Subscription($token: String,$gameId: String) {
+  newMessage(token: $token,gameId: $gameId) {
+    message {
       content
+      id
       sender {
         nickname
         playerId
       }
     }
   }
+}
 `;
 
 export const ACTIVE_GAME = gql`

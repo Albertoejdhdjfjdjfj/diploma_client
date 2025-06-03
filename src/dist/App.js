@@ -138,6 +138,7 @@ var react_redux_1 = require('react-redux');
 var react_router_dom_2 = require('react-router-dom');
 var client_1 = require('@apollo/client');
 var actions_1 = require('./redux/reducers/gameReducer/actions/actions');
+var actions_2 = require('./redux/reducers/userReducer/actions/actions');
 var subscriptions_1 = require('./assets/constants/graphql/subscriptions');
 var queries_1 = require('./assets/constants/graphql/queries');
 var CreateGameRoom_1 = require('./pages/CreateGameRoom/CreateGameRoom');
@@ -193,6 +194,9 @@ var App = function () {
     },
     [activeGame]
   );
+  react_1.useEffect(function () {
+    dispatch(actions_2.fetchUserInfo());
+  }, []);
   return React.createElement(
     'div',
     { className: 'App' },

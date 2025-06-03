@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSubscription, useLazyQuery } from '@apollo/client';
 import { setActiveGameId } from './redux/reducers/gameReducer/actions/actions';
+import { fetchUserInfo } from './redux/reducers/userReducer/actions/actions';
 import { ACTIVE_GAME } from './assets/constants/graphql/subscriptions';
 import { GET_ACTIVE_GAME } from './assets/constants/graphql/queries';
 import CreateGameRoom from './pages/CreateGameRoom/CreateGameRoom';
@@ -49,6 +50,10 @@ const App = () => {
   useEffect(() => {
     handleActiveGame();
   }, [activeGame]);
+
+  useEffect(() => {
+    dispatch(fetchUserInfo());
+  }, []);
 
   return (
     <div className="App">

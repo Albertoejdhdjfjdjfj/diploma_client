@@ -1,7 +1,7 @@
 import { ChangeEvent, KeyboardEvent } from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useQuery, useSubscription, useMutation } from '@apollo/client';
+import { useLazyQuery, useSubscription, useMutation } from '@apollo/client';
 import { GET_MESSAGES } from '../../assets/constants/graphql/queries';
 import { NEW_MESSAGE } from '../../assets/constants/graphql/subscriptions';
 import { SEND_MESSAGE } from '../../assets/constants/graphql/mutations';
@@ -20,11 +20,11 @@ const Game = () => {
   const token: string | undefined = Cookies.get('token');
   const dispatch = useDispatch();
 
-  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [messages, setMessages] = useState<Array<Message>|undefined>([]);
   const [content, setContent] = useState<string>('');
   const [focus,setFocus] = useState<boolean>(false)
 
-  const { data } = useQuery(GET_MESSAGES, {
+  const [getMessages] = useLazyQuery<{getMessages:Array<Message>}>(GET_MESSAGES, {
     variables: { gameId },
     context: {
       headers: {
@@ -34,23 +34,19 @@ const Game = () => {
     fetchPolicy: 'no-cache'
   });
 
-  const { data: newMessage } = useSubscription(NEW_MESSAGE, {
+  const { data:newMessage } = useSubscription<{newMessage:{message: Message}}>(NEW_MESSAGE, {
     variables: { token, gameId }
   });
 
   const [sendMessage] = useMutation(SEND_MESSAGE);
-
+  const handleGetRooms = async () => {
+   const {data} = await getMessages()
+    setMessages(data?.getMessages); 
+  };
+  
   useEffect(() => {
-    if (data) {
-      setMessages(data.getMessages);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (newMessage) {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    }
-  }, [newMessage]);
+    handleGetRooms()
+  }, [newMessage,gameId]);
 
   const isUserMessage = (messageId: string): boolean => userInfo?.id === messageId;
 
@@ -104,7 +100,7 @@ const Game = () => {
     <div className="game">
       <GameHeaderBar />
       <div className="messages">
-        {messages.map((message: Message) => (
+        {messages&&messages.map((message: Message) => (
           <div
             key={message.id}
             className={isUserMessage(message.sender.playerId) ? 'user_message' : 'message'}

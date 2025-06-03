@@ -23,6 +23,7 @@ const GameRooms = () => {
 
   const handleGetRooms = async () => {
     const { data } = await getGameRooms();
+    console.log(data);
     setGameRooms(data?.getGameRooms);
   };
 
@@ -43,15 +44,11 @@ const GameRooms = () => {
 
       {loading && <div>...Loading</div>}
       {error && <div>Error! {error.message}</div>}
-      {!gameRooms ? (
-        <div>No data available</div>
-      ) : (
-        <div className="rooms">
-          {gameRooms.map((game_room) => (
-            <GameRoomBlock game_room={game_room} />
-          ))}
-        </div>
-      )}
+
+      <div className="rooms">
+        {gameRooms && gameRooms.map((game_room) => <GameRoomBlock game_room={game_room} />)}
+      </div>
+
       <Paginator />
     </div>
   );

@@ -169,6 +169,7 @@ var GameRooms = function () {
             return [4 /*yield*/, getGameRooms()];
           case 1:
             data = _a.sent().data;
+            console.log(data);
             setGameRooms(data === null || data === void 0 ? void 0 : data.getGameRooms);
             return [2 /*return*/];
         }
@@ -196,15 +197,14 @@ var GameRooms = function () {
     ),
     loading && React.createElement('div', null, '...Loading'),
     error && React.createElement('div', null, 'Error! ', error.message),
-    !gameRooms
-      ? React.createElement('div', null, 'No data available')
-      : React.createElement(
-          'div',
-          { className: 'rooms' },
-          gameRooms.map(function (game_room) {
-            return React.createElement(GameRoomBlock_1['default'], { game_room: game_room });
-          })
-        ),
+    React.createElement(
+      'div',
+      { className: 'rooms' },
+      gameRooms &&
+        gameRooms.map(function (game_room) {
+          return React.createElement(GameRoomBlock_1['default'], { game_room: game_room });
+        })
+    ),
     React.createElement(Paginator_1['default'], null)
   );
 };

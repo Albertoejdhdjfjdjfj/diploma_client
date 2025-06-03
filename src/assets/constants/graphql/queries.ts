@@ -33,6 +33,7 @@ export const GET_MESSAGES = gql`
   query GetMessages($gameId: String!) {
     getMessages(gameId: $gameId) {
       content
+      id
       sender {
         nickname
         playerId

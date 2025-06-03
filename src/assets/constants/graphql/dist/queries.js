@@ -43,10 +43,10 @@ exports.GET_MESSAGES = client_1.gql(
   templateObject_3 ||
     (templateObject_3 = __makeTemplateObject(
       [
-        '\n  query GetMessages($gameId: String!) {\n    getMessages(gameId: $gameId) {\n      content\n      sender {\n        nickname\n        playerId\n      }\n    }\n  }\n'
+        '\n  query GetMessages($gameId: String!) {\n  getMessages(gameId: $gameId) {\n    content\n    id\n    sender {\n      nickname\n      playerId\n    }\n  }\n}\n'
       ],
       [
-        '\n  query GetMessages($gameId: String!) {\n    getMessages(gameId: $gameId) {\n      content\n      sender {\n        nickname\n        playerId\n      }\n    }\n  }\n'
+        '\n  query GetMessages($gameId: String!) {\n  getMessages(gameId: $gameId) {\n    content\n    id\n    sender {\n      nickname\n      playerId\n    }\n  }\n}\n'
       ]
     ))
 );

@@ -116,10 +116,10 @@ const GameRoomBlock = ({ game_room }: { game_room: GameRoom }) => {
         </button>
         {/* {userInfo &&
           (!inGame() ? ( */}
-            <button onClick={() => handleJoinGameRoom(game_room.id)}>
-              <img alt="join to game room" title="join to game room" src={plus} />
-            </button>
-          {/* ) : (
+        <button onClick={() => handleJoinGameRoom(game_room.id)}>
+          <img alt="join to game room" title="join to game room" src={plus} />
+        </button>
+        {/* ) : (
             <button onClick={() => handleLeaveGameRoom(game_room.id)}>
               <img alt="leave game room" title="leave game room" src={minus} />
             </button>

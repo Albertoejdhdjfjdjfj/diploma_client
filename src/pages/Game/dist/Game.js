@@ -35,13 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
 var react_1 = require("react");
 var react_redux_1 = require("react-redux");
@@ -62,7 +55,7 @@ var Game = function () {
     var _a = react_1.useState([]), messages = _a[0], setMessages = _a[1];
     var _b = react_1.useState(''), content = _b[0], setContent = _b[1];
     var _c = react_1.useState(false), focus = _c[0], setFocus = _c[1];
-    var data = client_1.useQuery(queries_1.GET_MESSAGES, {
+    var getMessages = client_1.useLazyQuery(queries_1.GET_MESSAGES, {
         variables: { gameId: gameId },
         context: {
             headers: {
@@ -70,21 +63,26 @@ var Game = function () {
             }
         },
         fetchPolicy: 'no-cache'
-    }).data;
+    })[0];
     var newMessage = client_1.useSubscription(subscriptions_1.NEW_MESSAGE, {
         variables: { token: token, gameId: gameId }
     }).data;
     var sendMessage = client_1.useMutation(mutations_1.SEND_MESSAGE)[0];
+    var handleGetRooms = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getMessages()];
+                case 1:
+                    data = (_a.sent()).data;
+                    setMessages(data === null || data === void 0 ? void 0 : data.getMessages);
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     react_1.useEffect(function () {
-        if (data) {
-            setMessages(data.getMessages);
-        }
-    }, [data]);
-    react_1.useEffect(function () {
-        if (newMessage) {
-            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [newMessage]); });
-        }
-    }, [newMessage]);
+        handleGetRooms();
+    }, [newMessage, gameId]);
     var isUserMessage = function (messageId) { return (userInfo === null || userInfo === void 0 ? void 0 : userInfo.id) === messageId; };
     function handleInputMessage(e) {
         setContent(e.currentTarget.value);
@@ -157,7 +155,7 @@ var Game = function () {
     }
     return (React.createElement("div", { className: "game" },
         React.createElement(GameHeaderBar_1["default"], null),
-        React.createElement("div", { className: "messages" }, messages.map(function (message) { return (React.createElement("div", { key: message.id, className: isUserMessage(message.sender.playerId) ? 'user_message' : 'message' },
+        React.createElement("div", { className: "messages" }, messages && messages.map(function (message) { return (React.createElement("div", { key: message.id, className: isUserMessage(message.sender.playerId) ? 'user_message' : 'message' },
             React.createElement("p", null, message.content))); })),
         React.createElement("div", { className: "input_message" + ' ' + (focus ? 'focus' : '') },
             React.createElement("input", { type: "text", onChange: handleInputMessage, onKeyDown: handleKeyDown, onFocus: changeFocus, onBlur: changeFocus, value: content }),
