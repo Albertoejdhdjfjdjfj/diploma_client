@@ -23,7 +23,6 @@ const GameRooms = () => {
 
   const handleGetRooms = async () => {
     const { data } = await getGameRooms();
-    console.log(data);
     setGameRooms(data?.getGameRooms);
   };
 
