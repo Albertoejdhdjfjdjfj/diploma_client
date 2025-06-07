@@ -29,13 +29,18 @@
 }
 
 .game > .messages > div > p {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
   padding: 5px 10px;
   background-color: aqua;
   color: black;
   border-radius: 10px;
   word-wrap: break-word;
   max-width: 100%;
+}
+
+.game > .messages > div > p > span {
+  color: red;
 }
 
 .game > .input_message {

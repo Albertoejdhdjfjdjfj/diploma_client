@@ -21,6 +21,7 @@ const GameRoomBlock = ({ game_room }: { game_room: GameRoom }) => {
   const [startGame] = useMutation(START_GAME);
   const players: number = game_room.players.length;
   const observers: number = game_room.observers.length;
+  const token: string | undefined = Cookies.get('token');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -111,19 +112,19 @@ const GameRoomBlock = ({ game_room }: { game_room: GameRoom }) => {
       </div>
       <p className="game_room_creator">{game_room.creator.nickname}</p>
       <div className="actions_list">
-        <button onClick={() => handleStartGame(game_room.id)}>
+        {userInfo &&(userInfo.id===game_room.creator.playerId)&&<button onClick={() => handleStartGame(game_room.id)}>
           <img alt="start game" title="start game" src={gamepad} />
-        </button>
-        {/* {userInfo &&
-          (!inGame() ? ( */}
-        <button onClick={() => handleJoinGameRoom(game_room.id)}>
-          <img alt="join to game room" title="join to game room" src={plus} />
-        </button>
-        {/* ) : (
+        </button>}
+        {userInfo &&
+          (!inGame() ? (
+            <button onClick={() => handleJoinGameRoom(game_room.id)}>
+              <img alt="join to game room" title="join to game room" src={plus} />
+            </button>
+          ) : (
             <button onClick={() => handleLeaveGameRoom(game_room.id)}>
               <img alt="leave game room" title="leave game room" src={minus} />
             </button>
-          ))} */}
+          ))}
       </div>
     </div>
   );

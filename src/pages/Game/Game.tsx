@@ -20,11 +20,11 @@ const Game = () => {
   const token: string | undefined = Cookies.get('token');
   const dispatch = useDispatch();
 
-  const [messages, setMessages] = useState<Array<Message>|undefined>([]);
+  const [messages, setMessages] = useState<Array<Message> | undefined>([]);
   const [content, setContent] = useState<string>('');
-  const [focus,setFocus] = useState<boolean>(false)
+  const [focus, setFocus] = useState<boolean>(false);
 
-  const [getMessages] = useLazyQuery<{getMessages:Array<Message>}>(GET_MESSAGES, {
+  const [getMessages] = useLazyQuery<{ getMessages: Array<Message> }>(GET_MESSAGES, {
     variables: { gameId },
     context: {
       headers: {
@@ -34,19 +34,19 @@ const Game = () => {
     fetchPolicy: 'no-cache'
   });
 
-  const { data:newMessage } = useSubscription<{newMessage:{message: Message}}>(NEW_MESSAGE, {
+  const { data: newMessage } = useSubscription<{ newMessage: { message: Message } }>(NEW_MESSAGE, {
     variables: { token, gameId }
   });
 
   const [sendMessage] = useMutation(SEND_MESSAGE);
   const handleGetRooms = async () => {
-   const {data} = await getMessages()
-    setMessages(data?.getMessages); 
+    const { data } = await getMessages();
+    setMessages(data?.getMessages);
   };
-  
+
   useEffect(() => {
-    handleGetRooms()
-  }, [newMessage,gameId]);
+    handleGetRooms();
+  }, [newMessage, gameId]);
 
   const isUserMessage = (messageId: string): boolean => userInfo?.id === messageId;
 
@@ -54,8 +54,8 @@ const Game = () => {
     setContent(e.currentTarget.value);
   }
 
-  function changeFocus(){
-    setFocus(!focus)
+  function changeFocus() {
+    setFocus(!focus);
   }
 
   const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
@@ -100,16 +100,24 @@ const Game = () => {
     <div className="game">
       <GameHeaderBar />
       <div className="messages">
-        {messages&&messages.map((message: Message) => (
-          <div
-            key={message.id}
-            className={isUserMessage(message.sender.playerId) ? 'user_message' : 'message'}
-          >
-            <p>{message.content}</p>
-          </div>
-        ))}
+        {messages &&
+          messages.map((message: Message) => (
+            <div
+              key={message.id}
+              className={isUserMessage(message.sender.playerId) ? 'user_message' : 'message'}
+            >
+              <p>
+                {!isUserMessage(message.sender.playerId) ? (
+                  <span>{message.sender.nickname}</span>
+                ) : (
+                  ''
+                )}
+                {message.content}
+              </p>
+            </div>
+          ))}
       </div>
-      <div className={"input_message"+' '+(focus?'focus':'')} >
+      <div className={'input_message' + ' ' + (focus ? 'focus' : '')}>
         <input
           type="text"
           onChange={handleInputMessage}
